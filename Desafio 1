@@ -1,0 +1,38 @@
+Descrição
+Imagine que você foi designado a criar um algoritmo para analisar o sentimento de um comentário fornecido pelo usuário, simulando analises de sentimentos, um assunto muito comentado dentro do Machine Learning. O programa solicitará ao usuário que insira um comentário, e em seguida, dividirá esse comentário em palavras individuais. Após isso, ele contará o número de palavras positivas, negativas e neutras dentro do comentário, baseando-se em uma lista pré-definida de palavras-chave. As palavras consideradas positivas incluem "bom", "ótimo", "excelente", "maravilhoso", "gostei" e "incrível" enquanto as palavras negativas incluem "ruim", "péssimo", "horrível", "terrível" e "odeio". Já as palavras neutras incluem "mas", "deixou", "apesar" e "embora". Depois de calcular as contagens de palavras positivas e negativas, o programa determinará o sentimento predominante do comentário. Se houver mais palavras positivas do que negativas, o sentimento será considerado positivo. Se houver mais palavras negativas do que positivas, o sentimento será considerado negativo. Caso contrário, se houver um número igual de palavras positivas e negativas, o sentimento será neutro.
+
+import re
+
+def analyze_sentiment():
+    # Entrada do usuário
+    comentario = input()
+
+    # Divisão do comentário em palavras
+    palavras = re.findall(r'\b\w+\b', comentario.lower())
+    
+    # Lista de palavras positivas, negativas e neutras
+    positivas = ["bom", "boa", "ótimo", "excelente", "maravilhoso", "gostei", "incrível"]
+    negativas = ["ruim", "péssimo", "horrível", "terrível", "odeio"]
+    neutras = ["mas", "deixou", "apesar", "embora"]
+
+    # Contagem de palavras positivas, negativas e neutras
+    count_positivo = sum(palavra in positivas for palavra in palavras)
+    count_negativo = sum(palavra in negativas for palavra in palavras)
+    count_neutro = sum(palavra in neutras for palavra in palavras)
+    # TODO: Conte quantas palavras neutras estão presentes no comentário.  
+
+    # Verifica se há mais palavras positivas do que negativas no comentário e se não há palavras neutras. Se essa condição for verdadeira, o comentário é considerado positivo.
+    if count_positivo > count_negativo and count_neutro == 0:
+        return "Positivo"
+    elif count_negativo > count_positivo and count_neutro == 0:
+        return "Negativo"
+    elif count_positivo == count_negativo and count_neutro == 0:
+        return "Neutro"
+    else:
+        # Considera neutro se há palavras neutras ou se há empate com palavras neutras
+        return "Neutro"
+    # TODO: Complete a codição para determinar o sentimento com base na contagem de palavras
+
+# Saída esperada
+sentimento = analyze_sentiment()
+print("Sentimento:", sentimento)
